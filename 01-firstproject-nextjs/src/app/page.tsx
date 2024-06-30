@@ -7,18 +7,23 @@ export default function Home() {
     <div className={styles.conteiner}>
       <main>
         <div className={styles.logoContent}>
-          <Image
-            className={styles.hero}
-            alt="logo tarefas"
-            src={heroImg}
-            priority
-          />
+          <Image alt="logo tarefas" src={heroImg} priority />
         </div>
         <h1>
           sitema feito pra vc organizar <br />
           seus estudos e tarefas
         </h1>
       </main>
+
+      <div className={styles.infoContent}>
+        <section>
+          <span>+12 posts</span>
+        </section>
+
+        <section>
+          <span>+90 comentarios</span>
+        </section>
+      </div>
     </div>
   );
 }

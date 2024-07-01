@@ -1,11 +1,9 @@
-'use client';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import styles from './styles.module.scss';
 
 export const Header = () => {
   const { data: session, status } = useSession();
-
   return (
     <header className={styles.header}>
       <section className={styles.content}>
@@ -15,6 +13,7 @@ export const Header = () => {
               Tarefas<span>+</span>
             </h1>
           </Link>
+
           {session?.user && (
             <Link className={styles.link} href="/dashboard">
               Meu Painel
@@ -25,21 +24,11 @@ export const Header = () => {
         {status === 'loading' ? (
           <></>
         ) : session ? (
-          <button
-            className={styles.loginBtn}
-            onClick={() => {
-              signOut();
-            }}
-          >
-            Ola {session.user?.name}
+          <button className={styles.loginBtn} onClick={() => signOut()}>
+            ola {session.user?.name}
           </button>
         ) : (
-          <button
-            className={styles.loginBtn}
-            onClick={() => {
-              signIn('google');
-            }}
-          >
+          <button className={styles.loginBtn} onClick={() => signIn('google')}>
             Acessar
           </button>
         )}

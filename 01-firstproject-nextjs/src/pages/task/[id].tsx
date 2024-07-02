@@ -4,17 +4,38 @@ import { GetServerSideProps } from 'next';
 import { db } from '../../services/firebaseConnection';
 import { doc, collection, query, where, getDoc } from 'firebase/firestore';
 import { redirect } from 'next/dist/server/api-utils';
+import { Textarea } from '@/src/components/Textarea';
 
-export default function Task() {
+interface ITaskProps {
+  item: {
+    tarefa: string;
+    public: boolean;
+    created_At: string;
+    user: string;
+    userId: string;
+  };
+}
+
+export default function Task({ item }: ITaskProps) {
   return (
     <div className={styles.conteiner}>
       <Head>
-        <title>Detalhes da tarefa</title>
+        <title>Tarefa - Detalhes da tarefa</title>
       </Head>
 
       <main className={styles.main}>
         <h1>Tarefa</h1>
+        <article className={styles.task}>{item?.tarefa}</article>
       </main>
+
+      <section className={styles.commentsConteiner}>
+        <h2>Deixar comentario</h2>
+
+        <form>
+          <Textarea placeholder="Digite seu comentario..." />
+          <button className={styles.button}>Enviar comentario</button>
+        </form>
+      </section>
     </div>
   );
 }
@@ -55,6 +76,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   console.log(task);
 
   return {
-    props: {},
+    props: {
+      item: task,
+    },
   };
 };
